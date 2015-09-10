@@ -7,20 +7,21 @@ import zmq
 import socket
 import os
 
+CLOUD_XFD_DATA = "/home/pi/extremefeedbacklamp/cloud-xfd.data"
 
 def get_url():
     """Get the url stored in the data file"""
-    if not os.path.isfile("cloud-xfd.data"):
-        with open("/home/pi/extremefeedbacklamp/cloud-xfd.data", "w") as f:
+    if not os.path.isfile(CLOUD_XFD_DATA):
+        with open(CLOUD_XFD_DATA, "w") as f:
             f.write("")
 
-    with open("/home/pi/extremefeedbacklamp/cloud-xfd.data", "r") as f:
+    with open(CLOUD_XFD_DATA, "r") as f:
         return f.read()
 
 
 def put_url(address):
     """Update the url stored in the data file"""
-    with open("/home/pi/extremefeedbacklamp/cloud-xfd.data", "w") as f:
+    with open(CLOUD_XFD_DATA, "w") as f:
         f.write(address)
 
 
