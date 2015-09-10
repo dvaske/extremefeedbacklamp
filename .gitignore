@@ -1,1 +1,4 @@
 WiringPi2-Python
+*.pyc
+*.idea
+*.iml
