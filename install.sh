@@ -48,6 +48,7 @@ sync
 
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
+sudo apt-get clean -y
 
 sudo ln -sf /home/pi/extremefeedbacklamp/xfdlampupdate.sh /etc/cron.daily/xfdlampupdate
 sudo chmod +x /etc/cron.daily/xfdlampupdate
