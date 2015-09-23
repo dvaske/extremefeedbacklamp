@@ -31,6 +31,7 @@ NEXT_STATE = 'setOff'
 SIREN_NEXT_STATE = 'setOff'
 SOUNDEFFECT_NEXT_STATE = 'setOff'
 STATE_CHANGE_LOCK = threading.Lock()
+NETWORK_INTERFACE = "/home/pi/extremefeedbacklamp/net-iface.data"
 
 button_last_state = 'siren'
 
@@ -57,6 +58,15 @@ AUDIOPIN = 1
 
 IO = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_PINS)
 PWM_COUNT = 100
+
+def get_iface():
+    """Get the network interface configured in the data file"""
+    if not os.path.isfile(NETWORK_INTERFACE):
+        with open(NETWORK_INTERFACE, "w") as f:
+            # Default eth0
+            f.write("eth0")
+    with open(NETWORK_INTERFACE, "r") as f:
+        return f.read()
 
 def fade_up(pin, step):
     """PWM ramp up to full duty"""
@@ -620,7 +630,7 @@ def iploop():
     """Watch ip address changes"""
     while(1):
         global LCD
-        text = 'IP Address:\n' + get_connection_string("eth0")
+        text = 'IP Address:\n' + get_connection_string(get_iface())
         LCD.update('ip', text)
         time.sleep(5)
 

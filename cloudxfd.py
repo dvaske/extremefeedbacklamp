@@ -8,6 +8,16 @@ import socket
 import os
 
 CLOUD_XFD_DATA = "/home/pi/extremefeedbacklamp/cloud-xfd.data"
+NETWORK_INTERFACE = "/home/pi/extremefeedbacklamp/net-iface.data"
+
+def get_iface():
+    """Get the network interface configured in the data file"""
+    if not os.path.isfile(NETWORK_INTERFACE):
+        with open(NETWORK_INTERFACE, "w") as f:
+            # Default eth0
+            f.write("eth0")
+    with open(NETWORK_INTERFACE, "r") as f:
+        return f.read()
 
 def get_url():
     """Get the url stored in the data file"""
@@ -74,8 +84,9 @@ def zeromq_worker(lock):
 
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    if os.path.isfile("/sys/class/net/eth0/address"):
-        with open("/sys/class/net/eth0/address", "r") as f:
+    interface = "/sys/class/net/" + get_iface() + "/address"
+    if os.path.isfile(interface):
+        with open(interface, "r") as f:
             mac_address = f.read()
     else:
         mac_address = "test"

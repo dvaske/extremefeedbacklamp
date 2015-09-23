@@ -11,6 +11,13 @@ import time
 MCAST_ADDR = "239.77.124.213"
 MCAST_PORT = 19418
 MCAST_ANS_PORT = 19419
+NETWORK_INTERFACE = "/home/pi/extremefeedbacklamp/net-iface.data"
+
+def get_iface():
+    """Get the network interface configured in the data file"""
+    with open(NETWORK_INTERFACE, "r") as f:
+        return f.read()
+
 
 def socket_setup():
     try:
@@ -26,7 +33,7 @@ def socket_setup():
 
 def listen():
     #ip = socket.gethostbyname(socket.gethostname())
-    myMAC = open('/sys/class/net/eth0/address').read()
+    myMAC = open('/sys/class/net/' + get_iface() + '/address').read()
     print "listen loop"
     sock = socket_setup()
     while True:
