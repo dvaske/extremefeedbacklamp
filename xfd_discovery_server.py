@@ -16,7 +16,7 @@ NETWORK_INTERFACE = "/home/pi/extremefeedbacklamp/net-iface.data"
 def get_iface():
     """Get the network interface configured in the data file"""
     with open(NETWORK_INTERFACE, "r") as f:
-        return f.read()
+        return f.read().rstrip()
 
 
 def socket_setup():

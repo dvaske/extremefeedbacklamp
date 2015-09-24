@@ -17,7 +17,7 @@ def get_iface():
             # Default eth0
             f.write("eth0")
     with open(NETWORK_INTERFACE, "r") as f:
-        return f.read()
+        return f.read().rstrip()
 
 def get_url():
     """Get the url stored in the data file"""
@@ -26,7 +26,7 @@ def get_url():
             f.write("")
 
     with open(CLOUD_XFD_DATA, "r") as f:
-        return f.read()
+        return f.read().rstrip()
 
 
 def put_url(address):

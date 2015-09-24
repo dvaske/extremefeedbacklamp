@@ -66,7 +66,7 @@ def get_iface():
             # Default eth0
             f.write("eth0")
     with open(NETWORK_INTERFACE, "r") as f:
-        return f.read()
+        return f.read().rstrip()
 
 def fade_up(pin, step):
     """PWM ramp up to full duty"""
